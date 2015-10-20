@@ -1,0 +1,25 @@
+<?php 
+$_APPID = "aaa";
+$_APPSECRET = "bbb";
+$tempInfo = url_https_request("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$_APPID."&secret=".$_APPSECRET ."");
+$getInfo = json_decode($tempInfo);
+$ACCESS_TOKEN = $getInfo->access_token;
+echo $ACCESS_TOKEN;
+
+function url_https_request($url, $data = null){
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_URL, $url);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+	curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
+	if (!empty($data)){
+		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+	}
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	$output = curl_exec($curl);
+	curl_close($curl);
+	return $output;
+}
+
+?>
