@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Ajax Example</title>
+	<script type="text/javascript" src="jquery.js"></script>
+</head>
+<body>
+	<ul id="info1">
+		<li>Put anything in the field below.</li>
+	</ul>
+	<!--<form id="form1">
+		<input type="text" name="field1" id="field1">
+		<input type="submit" name="submit" id="submit" value="Submit Form">
+	</form>-->
+	<input type="text" name="field1" id="field1">
+	<button id="btn">我是来测试的</button>
+	<script>
+	$('#btn').click(function() {
+		$.ajax({
+			type: 'POST',
+			url: 'ajax.php',
+			data: {field1:$("#field1").val()},
+			dataType: 'json',
+			success: function (data) {
+				console.log(data);
+				$('#info1').html(data.msg);
+			}
+		});
+	});
+	</script>
+</body>
+</html>
